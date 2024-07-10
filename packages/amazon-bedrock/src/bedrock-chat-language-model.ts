@@ -6,6 +6,7 @@ import {
   UnsupportedFunctionalityError,
 } from '@ai-sdk/provider';
 import { ParseResult } from '@ai-sdk/provider-utils';
+import { DocumentType as SmithyDocumentType } from '@smithy/types';
 import {
   BedrockRuntimeClient,
   ConverseCommand,
@@ -129,7 +130,9 @@ export class BedrockChatLanguageModel implements LanguageModelV1 {
                 toolSpec: {
                   name: mode.tool.name,
                   description: mode.tool.description,
-                  inputSchema: { json: JSON.stringify(mode.tool.parameters) },
+                  inputSchema: {
+                    json: mode.tool.parameters as SmithyDocumentType,
+                  },
                 },
               },
             ],
